@@ -18,6 +18,9 @@ export function App() {
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
     [paginatedTransactions, transactionsByEmployee]
   )
+  const loadMoreTransactions = useCallback(async () => {
+    await paginatedTransactionsUtils.fetchAll()
+  }, [paginatedTransactionsUtils])
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
@@ -25,6 +28,7 @@ export function App() {
 
     await employeeUtils.fetchAll()
     setIsLoading(false)
+    loadMoreTransactions()
   }, [employeeUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
@@ -78,7 +82,7 @@ export function App() {
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}
               onClick={async () => {
-                await loadAllTransactions()
+                await loadMoreTransactions()
               }}
             >
               View More
