@@ -29,7 +29,7 @@ export function App() {
     await employeeUtils.fetchAll()
     setIsLoading(false)
     loadMoreTransactions()
-  }, [employeeUtils, transactionsByEmployeeUtils])
+  }, [employeeUtils, transactionsByEmployeeUtils, loadMoreTransactions])
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
